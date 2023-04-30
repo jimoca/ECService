@@ -1,0 +1,36 @@
+package com.ec.ecservice.exception;
+
+import lombok.NoArgsConstructor;
+import org.springframework.util.StringUtils;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.stream.IntStream;
+
+@NoArgsConstructor
+public class EntityNotFoundException extends RuntimeException {
+    public EntityNotFoundException(Class clazz, String... searchParamsMap){
+        super(EntityNotFoundException.generateMessage(clazz.getSimpleName(), toMap(String.class, String.class, searchParamsMap)));
+    }
+    public EntityNotFoundException(String msg){
+        super(msg);
+    }
+
+    private static String generateMessage(String entity, Map<String, String> searchParams){
+        return StringUtils.capitalize(entity) +
+                " was not found for parameters " +
+                searchParams;
+    }
+
+    private static <K,V> Map<K, V> toMap( Class<K> keyType, Class<V> valueType, Object... entries){
+        //這邊一定要 key:value 兩對
+        if(entries.length % 2 == 1){
+            throw new IllegalArgumentException("Invalid entries!");
+        }
+        return IntStream.range(0, entries.length / 2).map(i -> i * 2)
+                .collect(HashMap::new,
+                        (m, i) -> m.put(keyType.cast(entries[i]), valueType.cast(entries[i+1])),
+                        Map::putAll);
+
+    }
+}
