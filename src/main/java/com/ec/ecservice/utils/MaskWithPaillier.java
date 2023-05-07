@@ -1,7 +1,8 @@
 package com.ec.ecservice.utils;
 
+import com.demo.ecclient.model.PictureBase;
+import com.demo.ecclient.model.PictureMask;
 import com.ec.ecservice.exception.BusinessException;
-import com.ec.ecservice.model.PictureModel;
 import security.misc.HomomorphicException;
 import security.paillier.PaillierCipher;
 import security.paillier.PaillierPublicKey;
@@ -12,7 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 public class MaskWithPaillier {
-    public static BigInteger[] apply(PictureModel image, PictureModel mask, PaillierPublicKey pk) {
+    public static BigInteger[] apply(PictureBase image, PictureMask mask, PaillierPublicKey pk) {
         System.out.println("Start");
         int img_width = image.getWidth();
         int img_height = image.getHeight();
