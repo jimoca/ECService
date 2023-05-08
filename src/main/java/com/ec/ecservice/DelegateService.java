@@ -17,6 +17,9 @@ public class DelegateService {
     Optional<TestModel> hello(TestModel testModel) {
         return Optional.of(testModel);
     }
+    Optional<String> ping() {
+        return Optional.of("pong");
+    }
 
 
     Optional<byte[]> delegateFile(byte[] serializedData) {
