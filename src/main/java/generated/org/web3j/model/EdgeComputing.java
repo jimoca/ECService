@@ -191,12 +191,12 @@ public class EdgeComputing extends Contract {
         return executeRemoteCallSingleValueReturn(function, String.class);
     }
 
-    public RemoteFunctionCall<TransactionReceipt> payTask(BigInteger _taskId) {
+    public RemoteFunctionCall<TransactionReceipt> payTask(BigInteger _taskId, BigInteger price) {
         final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(
                 FUNC_PAYTASK, 
                 Arrays.<Type>asList(new org.web3j.abi.datatypes.generated.Uint256(_taskId)), 
                 Collections.<TypeReference<?>>emptyList());
-        return executeRemoteCallTransaction(function);
+        return executeRemoteCallTransaction(function, price);
     }
 
     public RemoteFunctionCall<BigInteger> taskCount() {
